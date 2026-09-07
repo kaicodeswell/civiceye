@@ -3,7 +3,6 @@ import numpy as np
 from ultralytics import YOLO
 import time
 import os
-import winsound
 
 model = YOLO("yolov8n.pt")
 
@@ -166,8 +165,6 @@ def process_video(video_path, zone):
                                     filename,
                                     display
                                 )
-
-                                winsound.Beep(1000, 700)
 
                     else:
 
