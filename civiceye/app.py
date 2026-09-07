@@ -14,8 +14,7 @@ st.set_page_config(
 st.title("🚨 CIVIC EYE")
 st.subheader("Emergency Route Monitoring System")
 
-VIDEO_PATH = "videos/traffic.mp4"
-
+VIDEO_PATH = "civiceye/videos/traffic.mp4"
 if "zone_points" not in st.session_state:
     st.session_state.zone_points = []
 
