@@ -15,6 +15,7 @@ st.title("🚨 CIVIC EYE")
 st.subheader("Emergency Route Monitoring System")
 
 VIDEO_PATH = "civiceye/videos/traffic.mp4"
+
 if "zone_points" not in st.session_state:
     st.session_state.zone_points = []
 
@@ -49,7 +50,6 @@ if not st.session_state.monitoring:
     points = st.session_state.zone_points
 
     for point in points:
-
         cv2.circle(
             display,
             point,
@@ -191,54 +191,62 @@ else:
 
     incident_placeholder = st.empty()
 
-    for (
-        frame,
-        vehicle_count,
-        obstruction_count
-    ) in process_video(
-        VIDEO_PATH,
-        points
-    ):
+    try:
 
-        frame = cv2.cvtColor(
+        for (
             frame,
-            cv2.COLOR_BGR2RGB
-        )
-
-        video_placeholder.image(
-            frame,
-            channels="RGB",
-            use_container_width=True
-        )
-
-        vehicle_metric.metric(
-            "Vehicles Detected",
-            vehicle_count
-        )
-
-        obstruction_metric.metric(
-            "Active Obstructions",
+            vehicle_count,
             obstruction_count
+        ) in process_video(
+            VIDEO_PATH,
+            points
+        ):
+
+            frame_rgb = cv2.cvtColor(
+                frame,
+                cv2.COLOR_BGR2RGB
+            )
+
+            video_placeholder.image(
+                frame_rgb,
+                channels="RGB",
+                use_container_width=True
+            )
+
+            vehicle_metric.metric(
+                "Vehicles Detected",
+                vehicle_count
+            )
+
+            obstruction_metric.metric(
+                "Active Obstructions",
+                obstruction_count
+            )
+
+            if obstruction_count > 0:
+
+                status_metric.metric(
+                    "System Status",
+                    "🚨 ALERT"
+                )
+
+                incident_placeholder.error(
+                    "🚨 VEHICLE OBSTRUCTION DETECTED"
+                )
+
+            else:
+
+                status_metric.metric(
+                    "System Status",
+                    "🟢 ACTIVE"
+                )
+
+                incident_placeholder.success(
+                    "No active obstruction."
+                )
+
+    except Exception as e:
+
+        st.error(
+            f"Monitoring error: {type(e).__name__}: {e}"
         )
-
-        if obstruction_count > 0:
-
-            status_metric.metric(
-                "System Status",
-                "🚨 ALERT"
-            )
-
-            incident_placeholder.error(
-                "🚨 VEHICLE OBSTRUCTION DETECTED"
-            )
-
-        else:
-
-            status_metric.metric(
-                "System Status",
-                "🟢 ACTIVE"
-            )
-
-            incident_placeholder.success(
-                "No active obstruction."
-            )
