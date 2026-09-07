@@ -15,8 +15,10 @@ st.set_page_config(
 st.title("🚨 CIVIC EYE")
 st.caption("Emergency Zone & Vehicle Obstruction Detection")
 
-MODEL_PATH = "yolov8n.pt"
-VIDEO_PATH = "videos/traffic.mp4"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+MODEL_PATH = os.path.join(BASE_DIR, "yolov8n.pt")
+VIDEO_PATH = os.path.join(BASE_DIR, "videos", "traffic.mp4")
 
 @st.cache_resource
 def load_model():
