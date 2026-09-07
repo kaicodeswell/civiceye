@@ -4,7 +4,10 @@ from ultralytics import YOLO
 import time
 import os
 
-model = YOLO("civiceye/yolov8n.pt")
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+MODEL_PATH = os.path.join(BASE_DIR, "civiceye", "yolov8n.pt")
+
+model = YOLO(MODEL_PATH)
 
 STOP_TIME = 5
 MOVEMENT_THRESHOLD = 12
