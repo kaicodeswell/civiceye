@@ -4,7 +4,7 @@ from ultralytics import YOLO
 import time
 import os
 
-model = YOLO("yolov8n.pt")
+model = YOLO("civiceye/yolov8n.pt")
 
 STOP_TIME = 5
 MOVEMENT_THRESHOLD = 12
