@@ -154,7 +154,7 @@ Some future possibilities include:
 * 🤖 Improved AI models for better obstruction detection
 * 📈 Analytics to identify frequently blocked emergency routes
 * 🏙️ Smart City integration
-* 🚨 Automatic escalation for high-priority emergencies
+* 🚨 Automatic escalation for high-priority emergencies.
 
 ---
 
